@@ -1,6 +1,6 @@
-# ExpertResizer - Redimensionador Profesional de Imágenes
+# ExpertResizer - Redimensionador de Imágenes
 
-Herramienta profesional para redimensionar imágenes en lote manteniendo proporciones y optimizando calidad.
+Herramienta para redimensionar imágenes en lote manteniendo proporciones y optimizando calidad.
 
 ![ExpertResizer](https://github.com/fabiomb/ExpertResizer/blob/main/docs/resizer.png)
 
