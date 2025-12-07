@@ -2,6 +2,8 @@
 
 Herramienta profesional para redimensionar imágenes en lote manteniendo proporciones y optimizando calidad.
 
+![ExpertResizer](https://github.com/fabiomb/ExpertResizer/blob/main/docs/resizer.png)
+
 ## 🚀 Características
 
 - ✅ **Selección de carpetas**: Origen y destino separados para no sobreescribir originales
