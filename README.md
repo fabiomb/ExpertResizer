@@ -118,7 +118,7 @@ Este proyecto está disponible para uso personal y comercial.
 
 ## 👨‍💻 Autor
 
-Expert Image Tools - 2025
+Fabio Baccaglioni - 2025
 
 ---
 
