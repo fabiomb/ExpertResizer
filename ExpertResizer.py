@@ -362,6 +362,10 @@ class ExpertResizerApp:
                         # Aplicar rotación automática según EXIF (respeta orientación)
                         img = ImageOps.exif_transpose(img)
                         
+                        # Resetear tag de orientación a 1 (normal) ya que la rotación se aplicó físicamente
+                        if exif_data:
+                            exif_data[0x0112] = 1  # Tag de orientación = 1 (normal)
+                        
                         # Calcular nuevas dimensiones
                         new_w, new_h = self.calculate_new_dimensions(img.width, img.height)
                         
