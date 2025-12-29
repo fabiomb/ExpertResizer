@@ -6,7 +6,7 @@ Versión: 1.0.0
 
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, scrolledtext
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageOps
 import os
 from pathlib import Path
 from typing import List, Dict, Optional
@@ -356,6 +356,12 @@ class ExpertResizerApp:
                     
                     # Abrir imagen
                     with Image.open(img_info.filepath) as img:
+                        # Extraer datos EXIF antes de cualquier procesamiento
+                        exif_data = img.getexif()
+                        
+                        # Aplicar rotación automática según EXIF (respeta orientación)
+                        img = ImageOps.exif_transpose(img)
+                        
                         # Calcular nuevas dimensiones
                         new_w, new_h = self.calculate_new_dimensions(img.width, img.height)
                         
@@ -374,13 +380,19 @@ class ExpertResizerApp:
                             # Convertir a RGB si es necesario
                             if resized_img.mode in ('RGBA', 'LA', 'P'):
                                 resized_img = resized_img.convert('RGB')
-                            resized_img.save(dest_path, 'JPEG', quality=self.quality_jpg.get(), optimize=True)
+                            # Guardar con datos EXIF preservados
+                            resized_img.save(dest_path, 'JPEG', quality=self.quality_jpg.get(), 
+                                           optimize=True, exif=exif_data)
                             
                         elif img_info.format == 'PNG':
-                            resized_img.save(dest_path, 'PNG', compress_level=self.compression_png.get(), optimize=True)
+                            # PNG puede almacenar EXIF desde Pillow 6.0
+                            resized_img.save(dest_path, 'PNG', compress_level=self.compression_png.get(), 
+                                           optimize=True, exif=exif_data)
                             
                         elif img_info.format == 'WEBP':
-                            resized_img.save(dest_path, 'WEBP', quality=self.quality_webp.get())
+                            # WebP también soporta EXIF
+                            resized_img.save(dest_path, 'WEBP', quality=self.quality_webp.get(), 
+                                           exif=exif_data)
                         
                         # Tamaño final
                         final_size = os.path.getsize(dest_path) / 1024
